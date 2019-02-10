@@ -19,7 +19,7 @@
   //SIM800 RX is connected to Arduino D11 (Arduino RX)
   #define SIM800_RX_PIN 11
   
-  Upload readings to Thingspeak.com - https://thingspeak.com/channels/90109/private_show
+  Upload readings to Thingspeak.com - https://thingspeak.com/channels/90109
 
   Added readVcc() function from - https://provideyourown.com/2012/secret-arduino-voltmeter-measure-battery-voltage/
 */
