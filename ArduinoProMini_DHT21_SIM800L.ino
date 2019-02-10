@@ -41,14 +41,14 @@
 // Connect a 10K resistor from pin 2 (data) to pin 1 (power) of the sensor
 DHT dht(DHTPIN, DHTTYPE);
 
-char temp1f[5];
+
 float temp1;
 float batt2;
 float batt1;
 float hum;
-int delaytime = 60; // time between readings 
 
-char buffer[256];
+
+char buffer[512];
 // initialize GPRS Module
 GPRS gprs;
 
@@ -58,15 +58,13 @@ void setup() {
   Serial.println("GPRS - HTTP Connection Test...");
 
   dht.begin();
-  //tempSensor.begin();
-
+ 
 }
 
 void loop()
 {
   
-  readSensors();  // updates temp1, temp2, hum, batt1
-//readVcc();
+  readSensors();  // updates temp1, hum, batt1
   gprs.preInit();
   
   while (0 != gprs.init()) {
@@ -95,19 +93,20 @@ void loop()
   Serial.println("waiting to fetch...");
 
   char temp1_convert[10];
-dtostrf(temp1,1,2,temp1_convert);
+  dtostrf(temp1,1,2,temp1_convert);
 
-char hum_convert[10];
-dtostrf(hum,1,2,hum_convert);
+  char hum_convert[10];
+  dtostrf(hum,1,2,hum_convert);
  
-char batt1_convert[10];
-dtostrf(batt1,1,2,batt1_convert);
+  char batt1_convert[10];
+  dtostrf(batt1,1,2,batt1_convert);
  
  // change your Thingspeak key bellow
   
  snprintf(
     buffer,
     sizeof(buffer),
+    //"GET /update?api_key=YOUR API KEY HERE&field1=%s&&field2=%s&&field3=%s&&field4=%s HTTP/1.0\r\n\r\n",
     "GET /update?api_key=YOUR API KEY HERE&field1=%s&&field2=%s&&field3=%s HTTP/1.0\r\n\r\n",
     temp1_convert,
     hum_convert,
@@ -124,14 +123,14 @@ dtostrf(batt1,1,2,batt1_convert);
     // gprs.serialDebug();
 
     Serial.println("Reset GSM module!!");
-    pinMode(6, OUTPUT);
-    digitalWrite(6, LOW);
+    pinMode(2, OUTPUT);
+    digitalWrite(2, HIGH);
     delay(2000);
-    digitalWrite(6, HIGH);
-    delay(20000);
+    digitalWrite(2, LOW);
+    delay(40000); //delay 40 seconds
   }
 
-delay(20000);
+delay(40000); //dalay 40 seconds
 }
 
 // updates temp1, temp2, hum, batt1
