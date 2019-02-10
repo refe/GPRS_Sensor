@@ -1,5 +1,5 @@
 /*
-  GPRS Humidity & Temp Sensor by shmuck
+  GPRS Humidity & Temp Sensor by refe
   using sketch: GPRS_HTTP_THINGSPEAK_v4.ino from https://github.com/T00ManySecrets/water-gprs-temp
   Arduino Pro Mini 3.3V 8Mhz + SIM800L + DHT21/AM2301
   DHT Connected to pin 9 of Arduino Pro Mini 3.3V 8Mhz
